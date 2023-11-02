@@ -11,7 +11,7 @@ public class TemplateContext : IdentityDbContext<UserApi, IdentityRole<Guid>, Gu
     /// <summary>
     /// Task table definition with task class structure
     /// </summary>
-    DbSet<TodoTask> Tasks { get; set; }
+    public DbSet<TodoTask> Tasks { get; set; }
     #endregion
 
     #region CTOR
@@ -33,7 +33,7 @@ public class TemplateContext : IdentityDbContext<UserApi, IdentityRole<Guid>, Gu
         builder.Entity<UserApi>(u =>
         {
             u.ToTable(u => u.IsTemporal()).HasKey(u => u.Id);
-            u.HasMany(u => u.Tasks).WithOne(t => t.User).HasForeignKey(t => t.IdTask).OnDelete(DeleteBehavior.NoAction);
+            u.HasMany(u => u.Tasks).WithOne(t => t.User).HasForeignKey(t => t.IdUser).OnDelete(DeleteBehavior.NoAction);
         });
 
         builder.Entity<TodoTask>(t =>
