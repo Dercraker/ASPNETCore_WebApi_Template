@@ -16,8 +16,9 @@ public static class ServiceCollectionExtensions
     {
         services.AddDbContext<TemplateContext>(options =>
             options.UseSqlServer(
-                configuration.GetConnectionString("TEMPLATE_SQL"),
-                x => x.MigrationsAssembly(typeof(TemplateContext).Assembly.FullName)));
+                configuration.GetConnectionString("TEMPLATE_SQL")
+            //, x => x.MigrationsAssembly(typeof(TemplateContext).Assembly.FullName)
+            ), ServiceLifetime.Scoped);
     }
 
     /// <summary>
