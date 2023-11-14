@@ -1,4 +1,6 @@
-﻿namespace Template.Domain.Entities;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Template.Domain.Entities;
 public class TodoTask
 {
     public Guid IdTask { get; set; }

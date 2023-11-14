@@ -19,8 +19,8 @@ public class LoginUserValidator : AbstractValidator<LoginUserDto>
             .WithMessage("Login is required").Unless(dto => dto is null);
 
         RuleFor(dto => dto.Password).NotEmpty().WithErrorCode(nameof(EUserErrorCodes.UserPasswordNullOrEmpty))
-            .WithMessage("Login is required").Unless(dto => dto is null);
+            .WithMessage("Password is required").Unless(dto => dto is null);
         RuleFor(dto => dto.Password).NotNull().WithErrorCode(nameof(EUserErrorCodes.UserPasswordNullOrEmpty))
-            .WithMessage("Login is required").Unless(dto => dto is null);
+            .WithMessage("Password is required").Unless(dto => dto is null);
     }
 }

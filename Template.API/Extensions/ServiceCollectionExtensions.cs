@@ -136,7 +136,7 @@ public static class ServiceCollectionExtensions
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret)),
                 ValidateLifetime = true,
                 RoleClaimType = "Roles",
-                NameClaimType = "Name",
+                NameClaimType = "UserName",
 
             };
         });

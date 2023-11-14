@@ -42,6 +42,7 @@ public class TodoTaskController : ControllerBase
     /// </summary>
     /// <param name="createTodoTaskDto">CreateTodoTaskDto</param>
     /// <returns>A Task with TodoTask</returns>
+    /// <response code="401">Unauthorized</response>
     [ProducesErrorResponseType(typeof(Error))]
     [ProducesResponseType(typeof(ActionResult<TodoTaskDto>), Status201Created)]
     [HttpPost]
