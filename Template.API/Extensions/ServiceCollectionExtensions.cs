@@ -136,7 +136,7 @@ public static class ServiceCollectionExtensions
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret)),
                 ValidateLifetime = true,
                 RoleClaimType = "Roles",
-                NameClaimType = "Name",
+                NameClaimType = "UserName",
 
             };
         });
@@ -176,7 +176,7 @@ public static class ServiceCollectionExtensions
             options.User.RequireUniqueEmail = true;
         })
         .AddDefaultTokenProviders()
-        .AddRoles<IdentityRole>()
+        .AddRoles<IdentityRole<Guid>>()
         .AddEntityFrameworkStores<TemplateContext>();
 
 

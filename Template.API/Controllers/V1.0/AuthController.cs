@@ -30,7 +30,7 @@ public class AuthController : ControllerBase
     private readonly TemplateContext _context;
     private readonly JWTSettings _jwtSettings;
     private readonly UserManager<UserApi> _userManager;
-    private readonly RoleManager<IdentityRole> _roleManager;
+    private readonly RoleManager<IdentityRole<Guid>> _roleManager;
     private readonly IValidator<RegisterUserDto> _registerUserValidator;
     private readonly IValidator<LoginUserDto> _loginUserValidator;
     private readonly IValidator<ForgotPasswordDto> _forgotPasswordValidator;
@@ -40,7 +40,16 @@ public class AuthController : ControllerBase
     #endregion
 
     #region CTOR
-    public AuthController(TemplateContext context, JWTSettings jwtSettings, UserManager<UserApi> userManager, RoleManager<IdentityRole> roleManager, IValidator<RegisterUserDto> registerUserValidator, IUserPlatform userPlatform, IValidator<LoginUserDto> loginUserValidator, IMapper mapper, IValidator<ForgotPasswordDto> forgotPasswordDto, IValidator<ResetPasswordDto> resetPasswordValidator)
+    public AuthController(TemplateContext context,
+                          JWTSettings jwtSettings,
+                          UserManager<UserApi> userManager,
+                          RoleManager<IdentityRole<Guid>> roleManager,
+                          IValidator<RegisterUserDto> registerUserValidator,
+                          IUserPlatform userPlatform,
+                          IValidator<LoginUserDto> loginUserValidator,
+                          IMapper mapper,
+                          IValidator<ForgotPasswordDto> forgotPasswordDto,
+                          IValidator<ResetPasswordDto> resetPasswordValidator)
     {
         _context = context ?? throw new ArgumentNullException(nameof(context));
         _jwtSettings = jwtSettings ?? throw new ArgumentNullException(nameof(jwtSettings));
@@ -178,7 +187,7 @@ public class AuthController : ControllerBase
     /// Test the validity of a token
     /// </summary>
     /// <param name="token">token a check</param>
-
+    [AllowAnonymous]
     [ProducesErrorResponseType(typeof(Error))]
     [ProducesResponseType(typeof(ActionResult<TokenDto>), Status200OK)]
     [HttpPost]

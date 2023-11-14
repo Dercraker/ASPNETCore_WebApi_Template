@@ -3,15 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34202.233
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Template.API", "Template.API\Template.API.csproj", "{78DD7478-6539-4ADB-90F1-7F37E89B6062}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.API", "Template.API\Template.API.csproj", "{78DD7478-6539-4ADB-90F1-7F37E89B6062}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Template.Domain", "Template.Domain\Template.Domain.csproj", "{513EE52D-E5E9-42B9-A52C-726974CEF4BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Domain", "Template.Domain\Template.Domain.csproj", "{513EE52D-E5E9-42B9-A52C-726974CEF4BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Template.EFCore", "Template.EFCore\Template.EFCore.csproj", "{54CE4B12-9EA8-48B1-9EAB-031E9577391B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.EFCore", "Template.EFCore\Template.EFCore.csproj", "{54CE4B12-9EA8-48B1-9EAB-031E9577391B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Template.Platform", "Template.Platform\Template.Platform.csproj", "{12008C9E-35B1-42F2-A0A7-2FC277530ABB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Platform", "Template.Platform\Template.Platform.csproj", "{12008C9E-35B1-42F2-A0A7-2FC277530ABB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Template.Provider", "Template.Provider\Template.Provider.csproj", "{43D33329-DEFA-4B08-84F5-F26BEFCA8407}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Template.Provider", "Template.Provider\Template.Provider.csproj", "{43D33329-DEFA-4B08-84F5-F26BEFCA8407}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{43C1B5E3-9ED4-4CDE-9D93-63C2A7F0550E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Template.Unit.test", "Template.Unit.test\Template.Unit.test.csproj", "{8900CA60-7F6A-4987-9DD3-43A5A6F9907B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Template.Integration.test", "Template.Integration.test\Template.Integration.test.csproj", "{28A7643A-F63E-4058-A0E1-E9D9B60D8B2A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,9 +45,21 @@ Global
 		{43D33329-DEFA-4B08-84F5-F26BEFCA8407}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43D33329-DEFA-4B08-84F5-F26BEFCA8407}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43D33329-DEFA-4B08-84F5-F26BEFCA8407}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8900CA60-7F6A-4987-9DD3-43A5A6F9907B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8900CA60-7F6A-4987-9DD3-43A5A6F9907B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8900CA60-7F6A-4987-9DD3-43A5A6F9907B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8900CA60-7F6A-4987-9DD3-43A5A6F9907B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28A7643A-F63E-4058-A0E1-E9D9B60D8B2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28A7643A-F63E-4058-A0E1-E9D9B60D8B2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28A7643A-F63E-4058-A0E1-E9D9B60D8B2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28A7643A-F63E-4058-A0E1-E9D9B60D8B2A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8900CA60-7F6A-4987-9DD3-43A5A6F9907B} = {43C1B5E3-9ED4-4CDE-9D93-63C2A7F0550E}
+		{28A7643A-F63E-4058-A0E1-E9D9B60D8B2A} = {43C1B5E3-9ED4-4CDE-9D93-63C2A7F0550E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BF53AB8F-DCB8-4CF7-9DAE-4D5E1726B711}
