@@ -12,6 +12,7 @@ builder.Services.AddTemplateContext(builder.Configuration);
 
 builder.Services.ConfigureSwagger();
 builder.Services.ConfigureCors(builder.Configuration);
+builder.Services.ConfigureOutputCache();
 builder.Services.AddServices(builder.Configuration);
 builder.Services.AddJWT(builder.Configuration);
 builder.Services.ConfigureIdentity();
@@ -37,6 +38,8 @@ if (displaySwagger || app.Environment.IsDevelopment())
 }
 
 app.UseCors();
+
+app.UseOutputCache();
 
 app.UseHttpsRedirection();
 

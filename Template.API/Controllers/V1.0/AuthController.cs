@@ -82,6 +82,26 @@ public class AuthController : ControllerBase
     }
 
     /// <summary>
+    /// GetUserData
+    /// </summary>
+    [Authorize(Roles = Roles.Admin)]
+    [ProducesErrorResponseType(typeof(Error))]
+    [ProducesResponseType(typeof(ActionResult<UserDto>), Status200OK)]
+    [HttpGet]
+    [Route("getUser")]
+    public async Task<ActionResult<UserDto>> Register([FromQuery] string login)
+    {
+
+        UserApi? user = await _userManager.FindByNameAsync(login);
+        if (user is null)
+            user = await _userManager.FindByEmailAsync(login);
+        if (user is null) return BadRequest(EUserErrorCodes.UserNotFoundByLogin);
+
+
+        return _mapper.Map<UserApi, UserDto>(user);
+    }
+
+    /// <summary>
     /// Register Route
     /// </summary>
     [AllowAnonymous]
@@ -156,7 +176,8 @@ public class AuthController : ControllerBase
     /// <summary>
     /// Permet de login un user dans la DB
     /// </summary>
-    /// <param name="dto">Model de login d'un user</param>
+    /// <remarks> {"login": "Dercraker",  "password": "NMdRx$HqyT8jX6"}</remarks>
+    /// <param name="loginUserDto">Model de login d'un user</param>
     /// <response code="400 + Message"></response>
     /// <response code="401">Erreur de mdp ou id</response>
     /// <response code="200">Token + date d'expiration</response>

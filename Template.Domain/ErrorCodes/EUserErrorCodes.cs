@@ -12,5 +12,6 @@ public enum EUserErrorCodes
     UserEmailAlreadyUsed = 109,
     UserTokenNullOrEmpty = 110,
     UserConfirmPasswordNullOrEmpty = 111,
-    UserPasswordAndConfirmPasswordNotMatch = 112
+    UserPasswordAndConfirmPasswordNotMatch = 112,
+    UserNotFoundByLogin = 113
 }

@@ -18,6 +18,7 @@ public class CreateTodoTaskValidator : AbstractValidator<CreateTodoTaskDto>
             .WithErrorCode(nameof(ETodoTaskErrorCodes.TaskNameNullOrEmpty))
             .WithMessage("Task name is required")
             .Unless(dto => dto is null);
+
         RuleFor(dto => dto.TaskName)
             .Empty()
             .WithErrorCode(nameof(ETodoTaskErrorCodes.TaskNameNullOrEmpty))

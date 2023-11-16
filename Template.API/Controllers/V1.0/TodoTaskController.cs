@@ -3,6 +3,7 @@ using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
 using Template.Domain.Dto.TodoTask;
 using Template.Domain.Entities;
 using Template.Domain.ErrorCodes;
@@ -49,9 +50,9 @@ public class TodoTaskController : ControllerBase
     [Route("Add")]
     public async Task<ActionResult<TodoTaskDto>> AddTodoTask([FromBody] CreateTodoTaskDto createTodoTaskDto)
     {
-        ValidationResult validationResult = _createTodoTaskValidator.Validate(createTodoTaskDto);
-        if (!validationResult.IsValid)
-            return BadRequest(validationResult.Errors.Select(e => new Error(e.ErrorCode, e.ErrorMessage)));
+        //ValidationResult validationResult = _createTodoTaskValidator.Validate(createTodoTaskDto);
+        //if (!validationResult.IsValid)
+        //    return BadRequest(validationResult.Errors.Select(e => new Error(e.ErrorCode, e.ErrorMessage)));
 
         UserApi? user = await _userPlatform.GetByIdAsync(createTodoTaskDto.IdUser);
         if (user is null) return BadRequest(EUserErrorCodes.UserNotFoundById);
@@ -69,6 +70,8 @@ public class TodoTaskController : ControllerBase
     /// <param name="skip">to skip n first result</param>
     /// <param name="top">to get n max len of result</param>
     /// <returns>A Task with IQueryable of TodoTaskDto</returns>
+    [OutputCache]
+    [AllowAnonymous]
     [ProducesErrorResponseType(typeof(Error))]
     [ProducesResponseType(typeof(ActionResult<IQueryable<TodoTaskDto>>), Status200OK)]
     [HttpGet]

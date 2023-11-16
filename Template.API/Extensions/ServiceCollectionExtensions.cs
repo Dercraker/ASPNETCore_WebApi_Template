@@ -42,6 +42,26 @@ public static class ServiceCollectionExtensions
                 Description = "Template API",
             });
             c.IncludeXmlComments(xmlPath);
+
+            c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+            {
+                Description = "JWT Authorization header using the Bearer scheme.",
+                Name = "Authorization",
+                In = ParameterLocation.Header,
+                Scheme = "bearer",
+                Type = SecuritySchemeType.Http,
+                BearerFormat = "JWT"
+            });
+            c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
+                        },
+                        new string [] {}
+                    }
+                });
         });
     }
 
@@ -63,6 +83,26 @@ public static class ServiceCollectionExtensions
                        .AllowAnyHeader()
                        .Build();
             });
+        });
+    }
+
+    /// <summary>
+    /// Configures cache.
+    /// </summary>
+    /// <param name="services">The services.</param>
+    /// <param name="configuration">The configuration.</param>
+    public static void ConfigureOutputCache(this IServiceCollection services)
+    {
+        services.AddOutputCache(options =>
+        {
+            options.AddBasePolicy(builder =>
+            {
+                builder.Expire(TimeSpan.FromSeconds(30));
+                builder.Tag("tag-all");
+                builder.Cache();
+            });
+            options.AddPolicy("Expire10", builder => builder.Expire(TimeSpan.FromSeconds(10)));
+            options.AddPolicy("Expire120", builder => builder.Expire(TimeSpan.FromSeconds(120)));
         });
     }
 
