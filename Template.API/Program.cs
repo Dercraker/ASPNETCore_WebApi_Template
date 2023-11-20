@@ -14,6 +14,7 @@ builder.Services.ConfigureSwagger();
 builder.Services.ConfigureCors(builder.Configuration);
 builder.Services.ConfigureOutputCache();
 builder.Services.AddServices(builder.Configuration);
+builder.Services.AddGraphQLService();
 builder.Services.AddJWT(builder.Configuration);
 builder.Services.ConfigureIdentity();
 builder.Services.AddAutoMapperConfiguration();
@@ -46,6 +47,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapGraphQL("/graphql");
 
 app.Run();
 

@@ -13,7 +13,7 @@ using Template.EFCore;
 using Template.EFCore.Migrations;
 using Template.Platform.Interfaces;
 using static Microsoft.AspNetCore.Http.StatusCodes;
-using static Template.Domain.Models.HttpError;
+using Error = Template.Domain.Models.HttpError.Error;
 
 namespace Template.API.Controllers.V1._0;
 
