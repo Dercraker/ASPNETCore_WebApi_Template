@@ -7,6 +7,7 @@ using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.Text;
 using Template.API.AutoMapperProfiles;
+using Template.API.GraphQL;
 using Template.API.Validator.TodoTask;
 using Template.API.Validator.User;
 using Template.Domain.Dto.TodoTask;
@@ -17,7 +18,6 @@ using Template.EFCore;
 using Template.EFCore.Extensions;
 using Template.Platform.Extensions;
 using Template.Provider.Extensions;
-using Task = System.Threading.Tasks.Task;
 
 namespace Template.API.Extensions;
 
@@ -104,6 +104,19 @@ public static class ServiceCollectionExtensions
             options.AddPolicy("Expire10", builder => builder.Expire(TimeSpan.FromSeconds(10)));
             options.AddPolicy("Expire120", builder => builder.Expire(TimeSpan.FromSeconds(120)));
         });
+    }
+
+    /// <summary>
+    /// Add Graph QL Service
+    /// </summary>
+    public static void AddGraphQLService(this IServiceCollection services)
+    {
+        services.AddGraphQLServer()
+                .AddQueryType<TodoQuery>()
+                .AddProjections()
+                .AddFiltering()
+                .AddSorting()
+                .AddTypeExtension<ToDoExtensions>();
     }
 
     /// <summary>

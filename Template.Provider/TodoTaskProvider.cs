@@ -25,6 +25,9 @@ public class TodoTaskProvider : ITodoTaskProvider
     public IQueryable<TodoTask> GetAll() => _unitOfWork.TodoTasks.GetAll();
 
     /// <inheritdoc/>
+    public IQueryable<TodoTask> GetById(Guid todoTaskId) => _unitOfWork.TodoTasks.GetTaskById(todoTaskId);
+
+    /// <inheritdoc/>
     public async Task<TodoTask?> GetByIdAsync(Guid todoTaskId) => await _unitOfWork.TodoTasks.GetByIdAsync(todoTaskId);
 
     /// <inheritdoc/>

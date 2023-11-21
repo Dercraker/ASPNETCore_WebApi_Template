@@ -30,6 +30,14 @@ public interface ITodoTaskPlatform
     /// <param name="todoTaskId">Id of wanted Todo Task</param>
     /// <returns>
     /// </returns>
+    IQueryable<TodoTask> GetById(Guid todoTaskId);
+
+    /// <summary>
+    /// Get one TodoTask by its id
+    /// </summary>
+    /// <param name="todoTaskId">Id of wanted Todo Task</param>
+    /// <returns>
+    /// </returns>
     Task<TodoTask?> GetByIdAsync(Guid todoTaskId);
 
     /// <summary>
