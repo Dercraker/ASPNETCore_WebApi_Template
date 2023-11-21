@@ -1,6 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Template.Domain.Entities;
+using Template.EFCore.Migrations;
 
 namespace Template.EFCore.IOC;
 public static class ServiceCollectionExtensions
@@ -25,22 +28,30 @@ public static class ServiceCollectionExtensions
     /// Configures the database.
     /// </summary>
     /// <param name="services">The services.</param>
-    public static void ConfigureDatabase(this IServiceProvider services)
+    public static async Task ConfigureDatabase(this IServiceProvider services)
     {
         using (IServiceScope serviceScope = services.CreateScope())
         {
             TemplateContext? context = serviceScope.ServiceProvider.GetService<TemplateContext>();
-            if (context != null)
+            if (context is null)
+                throw new ArgumentNullException(nameof(context));
+            RoleManager<IdentityRole<Guid>>? roleManager = serviceScope.ServiceProvider.GetService<RoleManager<IdentityRole<Guid>>>();
+            if (roleManager is null)
+                throw new ArgumentNullException(nameof(roleManager));
+            UserManager<UserApi>? userManager = serviceScope.ServiceProvider.GetService<UserManager<UserApi>>();
+            if (userManager is null)
+                throw new ArgumentNullException(nameof(userManager));
+
+            if (context.Database.IsRelational())
             {
-                if (context.Database.IsRelational())
-                {
-                    context?.Database.Migrate();
-                }
-                else
-                {
-                    context.Database.EnsureCreated();
-                }
+                context?.Database.Migrate();
             }
+            else
+            {
+                context.Database.EnsureCreated();
+            }
+
+            await DBInitializer.Initialize(context, userManager, roleManager);
         }
     }
 

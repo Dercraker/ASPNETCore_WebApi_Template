@@ -8,6 +8,7 @@
 
 	
 	<ItemGroup>
+		<PackageReference Include="Faker.Data" Version="2.0.1" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.13" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.13" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.13">

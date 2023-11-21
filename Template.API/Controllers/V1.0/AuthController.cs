@@ -10,7 +10,6 @@ using Template.Domain.Entities;
 using Template.Domain.ErrorCodes;
 using Template.Domain.Settings;
 using Template.EFCore;
-using Template.EFCore.Migrations;
 using Template.Platform.Interfaces;
 using static Microsoft.AspNetCore.Http.StatusCodes;
 using Error = Template.Domain.Models.HttpError.Error;
@@ -28,7 +27,6 @@ public class AuthController : ControllerBase
 {
     #region Props
     private readonly TemplateContext _context;
-    private readonly JWTSettings _jwtSettings;
     private readonly UserManager<UserApi> _userManager;
     private readonly RoleManager<IdentityRole<Guid>> _roleManager;
     private readonly IValidator<RegisterUserDto> _registerUserValidator;
@@ -52,7 +50,6 @@ public class AuthController : ControllerBase
                           IValidator<ResetPasswordDto> resetPasswordValidator)
     {
         _context = context ?? throw new ArgumentNullException(nameof(context));
-        _jwtSettings = jwtSettings ?? throw new ArgumentNullException(nameof(jwtSettings));
         _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
         _roleManager = roleManager ?? throw new ArgumentNullException(nameof(roleManager));
         _registerUserValidator = registerUserValidator ?? throw new ArgumentNullException(nameof(registerUserValidator));
@@ -63,23 +60,6 @@ public class AuthController : ControllerBase
         _resetPasswordValidator = resetPasswordValidator ?? throw new ArgumentNullException(nameof(resetPasswordValidator));
     }
     #endregion
-
-    /// <summary>
-    /// Initialise les rôles et l'utilisateur Admin
-    /// </summary>
-    /// <response code="200 + Message"></response>
-    [AllowAnonymous]
-    [ProducesErrorResponseType(typeof(Error))]
-    [ProducesResponseType(typeof(ActionResult), Status201Created)]
-    [HttpPost]
-    [Route("Initialize")]
-    public async Task<IActionResult> Initialize()
-    {
-        bool result = await DBInitializer.Initialize(_context, _userManager, _roleManager);
-        string resultMessage = $"Initialisation DB : {(result ? "Succès" : "DB existe déja")}";
-
-        return Ok(resultMessage);
-    }
 
     /// <summary>
     /// GetUserData
@@ -176,11 +156,7 @@ public class AuthController : ControllerBase
     /// <summary>
     /// Permet de login un user dans la DB
     /// </summary>
-    /// <remarks> {"login": "Dercraker",  "password": "NMdRx$HqyT8jX6"}</remarks>
     /// <param name="loginUserDto">Model de login d'un user</param>
-    /// <response code="400 + Message"></response>
-    /// <response code="401">Erreur de mdp ou id</response>
-    /// <response code="200">Token + date d'expiration</response>
     [AllowAnonymous]
     [ProducesErrorResponseType(typeof(Error))]
     [ProducesResponseType(typeof(ActionResult<TokenDto>), Status200OK)]
@@ -222,31 +198,9 @@ public class AuthController : ControllerBase
         else return Unauthorized();
     }
 
-    //[HttpPost]
-    //[Route("ConfirmDiscord")]
-    //public async Task<IActionResult> ConfirmDiscord([FromBody] ConfirmDiscordDTO dto)
-    //{
-    //    if (!ModelState.IsValid) return BadRequest(ModelState);
-
-    //    ApiUser user = await userManager.FindByEmailAsync(dto.DiscordId);
-    //    if (user == null) return BadRequest("Nom d'utilisateur invalide");
-
-    //    if (user.EmailConfirmed) return BadRequest("Le compte discord est déjà validé");
-
-    //    IdentityResult? result = await userManager.ConfirmEmailAsync(user, dto.ConfirmationToken);
-    //    if (!result.Succeeded) return BadRequest(result.Errors);
-
-    //    result = await userManager.AddPasswordAsync(user, dto.Password);
-    //    if (!result.Succeeded) return BadRequest(result.Errors);
-
-    //    return Ok("Le compte discord a été validé avec succès");
-    //}
-
-
     /// <summary>
     /// Check if the user already exists 
     /// </summary>
-    /// <param name="DiscordId">discord id de l'utilisateur a check</param>
     [ProducesErrorResponseType(typeof(Error))]
     [ProducesResponseType(typeof(ActionResult), Status200OK)]
     [HttpGet]
@@ -281,7 +235,7 @@ public class AuthController : ControllerBase
     /// <summary>
     /// Create a request for a password change token
     /// </summary>
-    /// <param name="dto">Password change template</param>
+    /// <param name="forgotPasswordDto">Password change template</param>
     [ProducesErrorResponseType(typeof(Error))]
     [ProducesResponseType(typeof(ActionResult<TokenDto>), Status200OK)]
     [HttpPost]

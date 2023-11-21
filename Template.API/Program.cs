@@ -21,8 +21,7 @@ builder.Services.AddAutoMapperConfiguration();
 
 WebApplication app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-    app.Services.ConfigureDatabase();
+await app.Services.ConfigureDatabase();
 
 bool displaySwagger = builder.Configuration.GetValue<bool>("DisplaySwagger");
 if (displaySwagger || app.Environment.IsDevelopment())
@@ -37,6 +36,8 @@ if (displaySwagger || app.Environment.IsDevelopment())
         options.EnableTryItOutByDefault();
     });
 }
+
+
 
 app.UseCors();
 
