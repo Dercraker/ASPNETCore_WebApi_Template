@@ -112,7 +112,7 @@ public static class ServiceCollectionExtensions
     public static void AddGraphQLService(this IServiceCollection services)
     {
         services.AddGraphQLServer()
-                .AddQueryType<QueryToDo>()
+                .AddQueryType<TodoQuery>()
                 .AddProjections()
                 .AddFiltering()
                 .AddSorting()

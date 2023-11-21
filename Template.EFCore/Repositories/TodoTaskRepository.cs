@@ -1,4 +1,5 @@
-﻿using Template.Domain.Dto.TodoTask;
+﻿using Microsoft.EntityFrameworkCore;
+using Template.Domain.Dto.TodoTask;
 using Template.Domain.Entities;
 using Template.EFCore.Interfaces;
 
@@ -9,6 +10,8 @@ public class TodoTaskRepository : GenericRepository<TodoTask>, ITodoTaskReposito
     public TodoTaskRepository(TemplateContext _context) : base(_context)
     {
     }
+
+    public IQueryable<TodoTask> GetTaskById(Guid todoTaskId) => _context.Tasks.AsQueryable().Where(t => t.IdTask == todoTaskId);
 
     #endregion
     public async Task<TodoTask> UpdateAsync(TodoTask todoTask, UpdateTodoTaskDto updateDto)
