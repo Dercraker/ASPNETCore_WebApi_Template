@@ -1,4 +1,6 @@
+using Microsoft.CodeAnalysis;
 using Template.API.Extensions;
+using Template.Domain.Helper;
 using Template.EFCore.IOC;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -18,9 +20,12 @@ builder.Services.AddGraphQLService();
 builder.Services.AddJWT(builder.Configuration);
 builder.Services.ConfigureIdentity();
 builder.Services.AddAutoMapperConfiguration();
+TextLogger logger = builder.Services.SetupLogger();
+
+
 
 WebApplication app = builder.Build();
-
+app.ConfigureExceptionHandler(logger);
 await app.Services.ConfigureDatabase();
 
 bool displaySwagger = builder.Configuration.GetValue<bool>("DisplaySwagger");

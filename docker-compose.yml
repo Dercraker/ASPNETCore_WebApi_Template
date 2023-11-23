@@ -6,18 +6,19 @@ services:
     restart: always
 
     environment:
-      - Username=Dercraker
-      - Password=NMdRx$HqyT8jX6
-      - Email=antoine.capitain@gmail.com
+      - Username={{Username}}
+      - Password={{Password}}
+      - Email={{Email}}
     ports:
-      - '55555:80'
-      
+      - '8080:80'
+      - '8443:443'
+
   db:
     container_name: template-db-sqlserver
     image: 'mcr.microsoft.com/mssql/server:2022-latest'
     restart: always
     environment:
-      SA_PASSWORD: "ci4cwUFW6daAw2gLKhnQ1pf8OVYy0VC8QT8f3wdn7xQSp1adabZLo4O2NgAdt2RWrYV9UEesYD3QDb54WT35ZC4xDpmOgcSBJ6htB65sE3IsG2jBKL3ECN9cEvrkiZr8"
+      SA_PASSWORD: 'ci4cwUFW6daAw2gLKhnQ1pf8OVYy0VC8QT8f3wdn7xQSp1adabZLo4O2NgAdt2RWrYV9UEesYD3QDb54WT35ZC4xDpmOgcSBJ6htB65sE3IsG2jBKL3ECN9cEvrkiZr8'
       ACCEPT_EULA: 'Y'
       PID: Express
     user: root
@@ -27,7 +28,7 @@ services:
       - 'Todo_data:/var/opt/mssql/data'
       - 'Todo_log:/var/opt/mssql/log'
       - 'Todo_backup:/var/opt/mssql/backup'
-      
+
 volumes:
   Todo_data: null
   Todo_log: null

@@ -13,6 +13,7 @@ using Template.API.Validator.User;
 using Template.Domain.Dto.TodoTask;
 using Template.Domain.Dto.User;
 using Template.Domain.Entities;
+using Template.Domain.Helper;
 using Template.Domain.Settings;
 using Template.EFCore;
 using Template.EFCore.Extensions;
@@ -242,5 +243,12 @@ public static class ServiceCollectionExtensions
             };
         });
 
+    }
+
+    public static TextLogger SetupLogger(this IServiceCollection services)
+    {
+        TextLogger logger = new();
+        services.AddSingleton<ILogger>(logger);
+        return logger;
     }
 }

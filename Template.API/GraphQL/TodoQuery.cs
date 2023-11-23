@@ -43,7 +43,6 @@ public class TodoQuery
     /// Update TodoTask
     /// </summary>
     /// <param name="todoTaskPlatform"></param>
-    /// <param name="updateTodoTaskValidator"></param>
     /// <param name="todoTaskId"></param>
     /// <param name="updateDto"></param>
     /// <returns></returns>
