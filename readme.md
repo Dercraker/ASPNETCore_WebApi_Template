@@ -19,7 +19,8 @@
   docker compose up -d
   ```
 - Une fois le lancement des container finis. Ce type de résultat devrais être afficher dans le terminal.
-  ![[Pasted image 20231123164525.png]]
+  ![image](https://github.com/Dercraker/ASPNETCore_WebApi_Template/assets/46059868/c8a6f0bb-06f2-4624-b7a8-1175d014ce1a)
+
 - L'api seras disponible sous ce lien : [http://localhost:8080/](http://localhost:8080/)
 #### Politique de mot de passe
 Les mots de passe pour être valider via l'api doivent respecter les caractéristique suivantes : 
